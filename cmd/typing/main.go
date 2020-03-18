@@ -1,19 +1,18 @@
 package main
 
 import (
-	"context"
-	"time"
-
 	"github.com/iyuuya/go-typing/internal/typing"
+
+	"github.com/nsf/termbox-go"
 )
 
 func main() {
-	typing.Setup()
+	err := termbox.Init()
+	if err != nil {
+		panic(err)
+	}
+	defer termbox.Close()
 
-	ctx := context.Background()
-	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
-	defer cancel()
-
-	typing.MainLoop(ctx)
-
+	g := typing.NewGame()
+	g.Go()
 }
