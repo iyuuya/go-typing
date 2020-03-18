@@ -1,4 +1,4 @@
-package main
+package typing
 
 import (
 	"bufio"
@@ -12,7 +12,7 @@ import (
 
 var words []string
 
-func setup() {
+func Setup() {
 	words = []string{
 		"hello",
 		"world",
@@ -59,7 +59,7 @@ func (r *result) record(res bool) {
 	}
 }
 
-func mainLoop(ctx context.Context) {
+func MainLoop(ctx context.Context) {
 	res := result{}
 
 	ch := input(os.Stdin)
@@ -78,15 +78,4 @@ func mainLoop(ctx context.Context) {
 	case <-ctx.Done():
 		fmt.Printf("OK: %d, NG: %d\n", res.ok, res.ng)
 	}
-}
-
-func main() {
-	setup()
-
-	ctx := context.Background()
-	ctx, cancel := context.WithTimeout(ctx, 10*time.Second)
-	defer cancel()
-
-	mainLoop(ctx)
-
 }
